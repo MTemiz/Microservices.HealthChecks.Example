@@ -1,0 +1,54 @@
+﻿services:
+  monitoring.service:
+    image: monitoring.service
+    build:
+      context: .
+      dockerfile: Monitoring.Service/Dockerfile
+    ports:
+      - "5003:8080"
+
+  serviceA:
+    image: servicea
+    build:
+      context: .
+      dockerfile: ServiceA/Dockerfile
+    ports:
+      - "5002:8080"
+
+  serviceB:
+    image: serviceb
+    build:
+      context: .
+      dockerfile: ServiceB/Dockerfile
+    ports:
+      - "5001:8080"
+  
+  Redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+  
+  Postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "54321"
+      POSTGRES_USER: "postgres"
+  
+  Sql:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: sql
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "YourStrong@Passw0rd"
+  
+  Mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"

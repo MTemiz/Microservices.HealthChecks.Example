@@ -7,17 +7,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks()
-    .AddMongoDb(mongodbConnectionString: "mongodb://localhost:27017",
+    .AddMongoDb(mongodbConnectionString: "mongodb://mongo",
         name: "Mongo Check",
         failureStatus: HealthStatus.Degraded | HealthStatus.Unhealthy,
         tags: new[] { "MongoDB" }
     )
-    .AddNpgSql(connectionString: "User ID=postgres; Password=54321; Host=localhost; Port=5432; Database=postgres",
+    .AddNpgSql(connectionString: "User ID=postgres; Password=54321; Host=postgres; Port=5432; Database=postgres",
         name: "PostgreSQL Check",
         healthQuery: "SELECT 1",
         failureStatus: HealthStatus.Degraded | HealthStatus.Unhealthy,
         tags: new string[] { "PostgreSQL", "sql", "db" })
-    .AddRedis(redisConnectionString: "localhost:6379",
+    .AddRedis(redisConnectionString: "redis",
         name: "Redis Check",
         failureStatus: HealthStatus.Degraded | HealthStatus.Unhealthy,
         tags: new string[] { "redis" });
